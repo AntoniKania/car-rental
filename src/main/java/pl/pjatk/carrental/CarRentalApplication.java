@@ -9,7 +9,8 @@ public class CarRentalApplication {
 	public CarRentalApplication(CarService carService) {
 //		System.out.println(carService.getAllCars());
 //		System.out.println(carService.getAllRentals());
-		carService.rentCar(new User("1"), "1234");
+		Rental testRental = carService.rentCar(new User("1"), "4321");
+		System.out.println(testRental);
 	}
 
 	public static void main(String[] args) {

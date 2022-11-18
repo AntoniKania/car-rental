@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component
 public class CarStorage {
-    private List<Car> carList = new ArrayList<Car>();
+    private final List<Car> carList = new ArrayList<Car>();
 
     public CarStorage() {
         carList.add(new Car("Opel", "Astra", "1234", CarType.STANDARD));

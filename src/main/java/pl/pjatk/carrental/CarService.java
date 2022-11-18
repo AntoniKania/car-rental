@@ -13,33 +13,27 @@ public class CarService {
         this.carStorage = carStorage;
         this.rentalStorage = rentalStorage;
     }
-    private boolean isCarAvailable(String vin) {
-        if (carStorage.getCarList().stream()
-                .noneMatch(car -> car.getVin().equals(vin))) {
-            return false;
-        }
-        return rentalStorage.getRentalList().stream()
-                .map(Rental::getCar)
-                .anyMatch(car -> car.getVin().equals(vin));
-    }
-
     public Rental rentCar(User user, String vin) {
-        if (!isCarAvailable(vin)) {
-            System.out.println("Car is unavailable");
+        if (rentalStorage.getRentalList().stream()
+                .map(Rental::getCar)
+                .anyMatch(car -> car.getVin().equals(vin))) {
+            System.out.println("Car is currently rented");
             return null;
         }
+
         Optional<Car> car = carStorage.getCarList().stream()
                 .filter(storage -> storage.getVin().equals(vin))
                 .findFirst();
 
         if(car.isEmpty()) {
-            System.out.print("Car with this vin doesn't exist in database");
+            System.out.println("Car with this vin doesn't exist in database");
             return null;
         }
 
-        return new Rental(user, car.get()); //dodać wsadzanie rentala do rental storage
+        Rental rental = new Rental(user, car.get());
+        rentalStorage.addNewRental(rental);
+        return rental;
     }
-
     public List<Car> getAllCars() {
         return carStorage.getCarList();
     }
@@ -47,13 +41,4 @@ public class CarService {
     public List<Rental> getAllRentals() {
         return rentalStorage.getRentalList();
     }
-    /*
-    isAvailable()
-    List<Car> listOfRentCars // co jezeli mamy kilka aut tego samego modelu?
-
-1 metoda: sprawdzenie cz istnieje w carstorage2 metoda:
-sprawdzenie czy istnieje w rentalstorage
-    createNewCLient()
-    rentCar(client, car)
-    */
 }
