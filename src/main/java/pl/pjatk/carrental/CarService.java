@@ -13,29 +13,39 @@ public class CarService {
         this.carStorage = carStorage;
         this.rentalStorage = rentalStorage;
     }
+    private boolean isCarAvailable(String vin) {
+        if (carStorage.getCarList().stream()
+                .noneMatch(car -> car.getVin().equals(vin))) {
+            return false;
+        }
+        return rentalStorage.getRentalList().stream()
+                .map(Rental::getCar)
+                .anyMatch(car -> car.getVin().equals(vin));
+    }
+
+    public Rental rentCar(User user, String vin) {
+        if (!isCarAvailable(vin)) {
+            System.out.println("Car is unavailable");
+            return null;
+        }
+        Optional<Car> car = carStorage.getCarList().stream()
+                .filter(storage -> storage.getVin().equals(vin))
+                .findFirst();
+
+        if(car.isEmpty()) {
+            System.out.print("Car with this vin doesn't exist in database");
+            return null;
+        }
+
+        return new Rental(user, car.get()); //dodać wsadzanie rentala do rental storage
+    }
+
     public List<Car> getAllCars() {
         return carStorage.getCarList();
     }
 
     public List<Rental> getAllRentals() {
         return rentalStorage.getRentalList();
-    }
-    public Rental rentCar(User user, String vin) {
-        if (carStorage.getCarList().stream().noneMatch(car -> car.getVin().equals(vin))) {
-            return null;
-        }
-        Optional<Rental> first = rentalStorage.getRentalList().stream()
-                .filter(rental -> rental.getCar().getVin().equals(vin))
-                .findFirst();
-        if (rentalStorage.getRentalList().stream()
-                .map(Rental::getCar)
-                .anyMatch(car -> car.getVin().equals(vin))) {
-            System.out.println("auto jest wypozyczone");
-            return null;
-        }
-        System.out.println("wypozyczenia auta");
-        new Rental(new User("1"), carStorage.getCarList().stream().)
-
     }
     /*
     isAvailable()

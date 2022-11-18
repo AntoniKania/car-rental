@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component
 public class RentalStorage {
-    List<Rental> rentalList = new ArrayList<>();
+    private List<Rental> rentalList = new ArrayList<>();
 
     public RentalStorage() {
         rentalList.add(new Rental(new User("1"), new Car("Opel", "Astra", "1234", CarType.STANDARD)));
@@ -18,5 +18,8 @@ public class RentalStorage {
 //    }
     public List<Rental> getRentalList() {
         return rentalList;
+    }
+    public void addNewRental(Rental rental) {
+        rentalList.add(rental);
     }
 }
