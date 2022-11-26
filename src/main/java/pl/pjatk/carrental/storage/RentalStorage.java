@@ -1,6 +1,10 @@
-package pl.pjatk.carrental;
+package pl.pjatk.carrental.storage;
 
 import org.springframework.stereotype.Component;
+import pl.pjatk.carrental.model.Car;
+import pl.pjatk.carrental.model.CarType;
+import pl.pjatk.carrental.model.Rental;
+import pl.pjatk.carrental.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

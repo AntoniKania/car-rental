@@ -2,14 +2,21 @@ package pl.pjatk.carrental;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import pl.pjatk.carrental.model.RentalInfo;
+import pl.pjatk.carrental.model.User;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class CarRentalApplication {
 
 	public CarRentalApplication(CarService carService) {
-//		System.out.println(carService.getAllCars());
-//		System.out.println(carService.getAllRentals());
-		Rental testRental = carService.rentCar(new User("1"), "4321");
+
+		RentalInfo testRental = carService.rentCar(
+				new User("1"), "9876",
+				LocalDate.of(2022, 11, 23),
+				LocalDate.of(2022, 11, 22)
+		);
 		System.out.println(testRental);
 	}
 

@@ -1,4 +1,4 @@
-package pl.pjatk.carrental;
+package pl.pjatk.carrental.model;
 
 public class Rental {
     private final User user;

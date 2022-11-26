@@ -1,10 +1,10 @@
-package pl.pjatk.carrental;
+package pl.pjatk.carrental.model;
 
 public class Car {
-    private String make;
-    private String model;
-    private String vin;
-    private CarType carType;
+    private final String make;
+    private final String model;
+    private final String vin;
+    private final CarType carType;
 
     public Car(String make, String model, String vin, CarType carType) {
         this.make = make;
@@ -15,6 +15,9 @@ public class Car {
 
     public String getVin() {
         return vin;
+    }
+    public CarType getCarType() {
+        return carType;
     }
 
     @Override
