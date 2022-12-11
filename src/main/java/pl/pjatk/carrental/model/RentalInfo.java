@@ -13,6 +13,9 @@ public class RentalInfo {
         this.endDate = endDate;
     }
 
+    public double getPrice() {
+        return price;
+    }
     @Override
     public String toString() {
         return "Rental info: price: " + price + " start date: " + startDate + " end date: " + endDate;

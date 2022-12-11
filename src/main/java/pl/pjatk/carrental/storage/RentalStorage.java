@@ -20,6 +20,13 @@ public class RentalStorage {
     public void addNewRental(Rental rental) {
         rentalList.add(rental);
     }
+
+    public boolean isCarRented(String vin) {
+        return getRentalList().stream()
+                .map(Rental::getCar)
+                .anyMatch(car -> car.getVin().equals(vin));
+    }
+
     public List<Rental> getRentalList() {
         return rentalList;
     }

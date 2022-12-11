@@ -1,5 +1,6 @@
 package pl.pjatk.carrental;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.pjatk.carrental.model.RentalInfo;
 import pl.pjatk.carrental.model.User;
@@ -12,9 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CarServiceTest {
 
-    private final CarStorage carStorage = new CarStorage();
-    private final RentalStorage rentalStorage = new RentalStorage();
-    private final CarService carService = new CarService(carStorage, rentalStorage);
+    private CarService carService;
+
+    @BeforeEach
+    void setup() {
+        CarStorage carStorage = new CarStorage();
+        RentalStorage rentalStorage = new RentalStorage();
+        carService = new CarService(carStorage, rentalStorage);
+    }
 
     @Test
     void successCarRent() {

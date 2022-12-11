@@ -5,6 +5,7 @@ public class User {
     public User(String accId) {
         this.accId = accId;
     }
+
     @Override
     public String toString() {
         return "userId: " + accId;

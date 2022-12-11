@@ -25,13 +25,13 @@ public class CarService {
     public RentalInfo rentCar(User user, String vin, LocalDate startDate, LocalDate endDate) {
         double price;
         long numberOfDays = calculateNumberOfDays(startDate, endDate);
-        Optional<Car> car = getOptionalCar(vin);
+        Optional<Car> car = carStorage.findCarByVin(vin);
         if(car.isEmpty()) {
             System.out.println("Car with this vin doesn't exist in database");
             return null;
         }
 
-        if (isAlreadyRented(vin)) {
+        if (rentalStorage.isCarRented(vin)) {
             System.out.println("Car is currently rented");
             return null;
         }
@@ -45,18 +45,6 @@ public class CarService {
         rentalStorage.addNewRental(new Rental(user, car.get()));
 
         return new RentalInfo(price, startDate, endDate);
-    }
-
-    private Optional<Car> getOptionalCar(String vin) {
-        return carStorage.getCarList().stream()
-                .filter(storage -> storage.getVin().equals(vin))
-                .findFirst();
-    }
-
-    private boolean isAlreadyRented(String vin) {
-        return rentalStorage.getRentalList().stream()
-                .map(Rental::getCar)
-                .anyMatch(car -> car.getVin().equals(vin));
     }
 
     private long calculateNumberOfDays(LocalDate startDate, LocalDate endDate) {
