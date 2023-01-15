@@ -13,6 +13,13 @@ public class Car {
         this.carType = carType;
     }
 
+    public Car() {
+        this.make = null;
+        this.model = null;
+        this.vin = null;
+        this.carType = null;
+    }
+
     public String getVin() {
         return vin;
     }
